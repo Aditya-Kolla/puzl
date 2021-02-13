@@ -1,8 +1,8 @@
-import QuestionScreen from './components/hoot/QuestionScreen';
+import QuestionSetCreator from './components/hoot/creator/QuestionSetCreator';
 
 function App() {
   return (
-    <QuestionScreen />
+    <QuestionSetCreator />
   );
 }
 
