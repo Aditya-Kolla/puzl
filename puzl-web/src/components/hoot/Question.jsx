@@ -1,11 +1,7 @@
 import React from 'react';
 
 import Typography from '@material-ui/core/Typography';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
+import { Button, Container, Grid } from '@material-ui/core';
 
 
 const Question = ({ question, options, setOption }) => {
@@ -13,22 +9,32 @@ const Question = ({ question, options, setOption }) => {
     let renderQuestion = (question) => <Typography variant="h3">{question}</Typography>
 
     let renderOptions = (options) => {
-        let actionableOptions = options.map((option, i) =>
-            <FormControlLabel value={option} control={<Radio />} label={option} key={i} onClick={() => setOption(i)}/>
+        let actionableOptions = Object.entries(options).map(([key, value]) =>
+            <Grid item key={key}>
+                <Button
+                    variant="outlined"
+                    color="primary"
+                    size="large"
+                    style={{ width: '200px' }}
+                    onClick={() => setOption(key)}
+                >
+                    {value}
+                </Button >
+            </Grid>
         );
-        return <FormControl component="fieldset">
-            <FormLabel component="legend">Select your answer!</FormLabel>
-            <RadioGroup aria-label="option" name="option-radio">
+
+        return (
+            <Grid direction="column" spacing={2} container>
                 {actionableOptions}
-            </RadioGroup>
-        </FormControl>
+            </Grid>
+        )
     }
 
     return (
-        <div>
+        <Container>
             {renderQuestion(question)}
             {renderOptions(options)}
-        </div>
+        </Container>
     )
 }
 
