@@ -16,7 +16,7 @@ const questionSet = require('./routes/questionSet')
 
 const PORT = 8080
 
-mongoose.connect('mongodb://localhost:27017', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://mongo:27017', { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use(cors());
 app.use(bodyParser.json());

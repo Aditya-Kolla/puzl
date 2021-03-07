@@ -1,0 +1,52 @@
+version: "3"
+
+services: 
+  
+  puzl-web:
+    build:
+      context: ./puzl-web
+      dockerfile: Dockerfile
+    restart: "on-failure"
+    networks:
+      - puzl-network
+    ports:
+      - "3000:3000"
+    depends_on: 
+      - puzl-server
+    volumes: 
+      - ./puzl-web:/home/node/puzl-web
+      - puzl-web-node_modules:/home/node/puzl-web/node_modules
+    stdin_open: true
+  
+  puzl-server:
+    build:
+      context: ./puzl-server
+      dockerfile: Dockerfile
+    restart: "on-failure"
+    networks:
+      - puzl-network
+    ports:
+      - "8080:8080"
+    depends_on: 
+      - mongo
+    volumes: 
+      - ./puzl-server:/home/node/puzl-server
+      - puzl-server-node_modules:/home/node/puzl-server/node_modules
+
+  mongo:
+    image: mongo:3.6
+    restart: "on-failure"
+    networks: 
+      - puzl-network
+    ports:
+      - "27017:27017"
+
+volumes:
+  puzl-web-node_modules:
+    driver: local
+  puzl-server-node_modules:
+    driver: local
+
+networks: 
+  puzl-network:
+    driver: bridge
