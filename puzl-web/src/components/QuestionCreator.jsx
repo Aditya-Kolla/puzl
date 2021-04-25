@@ -23,7 +23,7 @@ const QuestionCreator = (props) => {
     if (question === "") return false;
     let emptyOptions = options.filter((option) => option === "");
     if (emptyOptions.length > 0) return false;
-    if (!options.find((option) => option === correctOption)) return false;
+    if (!options.includes(correctOption)) return false;
     return true;
   };
 
