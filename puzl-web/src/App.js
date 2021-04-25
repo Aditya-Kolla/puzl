@@ -1,7 +1,8 @@
 import React from 'react';
 import { Heading, Grommet } from 'grommet';
 
-import QuestionSetCreator from "./components/QuestionSetCreator";
+import AppContainer from './components/AppContainer';
+import MainContainer from './components/MainContainer';
 
 const theme = {
   global: {
@@ -10,15 +11,22 @@ const theme = {
       size: "18px",
       height: "20px"
     }
+  },
+  formField: {
+    label: {
+      requiredIndicator: true,
+    }
   }
 }
 function App() {
   return (
     <Grommet theme={theme}>
-      <Heading margin="small" textAlign="center">
-        Puzl
-      </Heading>
-      <QuestionSetCreator />
+      <AppContainer>
+        <Heading margin="small" textAlign="center">
+          Puzl
+        </Heading>
+        <MainContainer />
+      </AppContainer>
     </Grommet>
   );
 }
