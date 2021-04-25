@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Button, List } from "grommet";
+import { Box, Button, Heading, List } from "grommet";
 import QuestionCreator from "./QuestionCreator";
 
 const QuestionSetCreator = (props) => {
@@ -45,7 +45,8 @@ const QuestionSetCreator = (props) => {
           />
         </div>
       ) : (
-        <div>
+        <>
+        <Heading level="3">The questions so far</Heading>
           <List
             primaryKey="question"
             data={questionSet}
@@ -57,7 +58,7 @@ const QuestionSetCreator = (props) => {
             margin="large"
             onClick={() => setCreationActive(true)}
           />
-        </div>
+        </>
       )}
     </Box>
   );
