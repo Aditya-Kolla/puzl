@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Box, Button, Heading, List } from "grommet";
+import { FormPreviousLink } from "grommet-icons";
+
 import QuestionCreator from "./QuestionCreator";
 
 const QuestionSetCreator = (props) => {
@@ -16,6 +18,27 @@ const QuestionSetCreator = (props) => {
     setEditableQuestion({});
   };
 
+  const updateQuestion = (updatedQuestion) => {
+    let sameQuestion = questionSet.find(
+      (q) => q.question === updatedQuestion.question
+    );
+    if (!!sameQuestion) {
+      alert("The same question already exists!");
+      return false;
+    }
+    let newQuestionSet = [...questionSet];
+    let updatedQuestionInSet = newQuestionSet.find(
+      (q) => q.question === editableQuestion.question
+    );
+    updatedQuestionInSet.question = updatedQuestion.question;
+    updatedQuestionInSet.options = updatedQuestion.options;
+    updatedQuestionInSet.correctOption = updatedQuestion.correctOption;
+    setQuestionSet(newQuestionSet);
+    setEditingQuestion(false);
+    setEditableQuestion({});
+    return true;
+  };
+
   const editQuestion = (questionIndex) => {
     setEditableQuestion(questionSet[questionIndex]);
     setEditingQuestion(true);
@@ -25,28 +48,27 @@ const QuestionSetCreator = (props) => {
     setCreationActive(false);
     setEditingQuestion(false);
     setEditableQuestion({});
-  }
+  };
 
   return (
     <Box align="center" flex="grow" margin="small" gap="small" fill="vertical">
       {isCreationActive || editingQuestion ? (
         <div>
-          <Button
-            secondary
-            label="Question set"
-            onClick={() => goToQuestionSet()}
-          />
+          <Button onClick={() => goToQuestionSet()}>
+            <FormPreviousLink />
+          </Button>
           <QuestionCreator
             addQuestion={addQuestion}
+            updateQuestion={updateQuestion}
             question={editableQuestion.question}
             options={editableQuestion.options}
             correctOption={editableQuestion.correctOption}
-            isUpdate={editingQuestion}
+            isEdit={editingQuestion}
           />
         </div>
       ) : (
         <>
-        <Heading level="3">The questions so far</Heading>
+          <Heading level="3">The questions so far</Heading>
           <List
             primaryKey="question"
             data={questionSet}

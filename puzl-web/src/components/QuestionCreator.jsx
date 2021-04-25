@@ -1,20 +1,16 @@
 import React, { useState } from "react";
-import {
-  Box,
-  Button,
-  RadioButton,
-  TextArea,
-  TextInput,
-} from "grommet";
+import { Box, Button, RadioButton, TextArea, TextInput } from "grommet";
 
 const QuestionCreator = (props) => {
   const defaultQuestion = "";
   const defaultOptions = ["Option 1", "Option 2", "Option 3", "Option 4"];
+
   const [question, setQuestion] = useState(props.question || defaultQuestion);
   const [options, setOptions] = useState(props.options || defaultOptions);
   const [correctOption, setCorrectOption] = useState(
     props.correctOption || options[0]
   );
+  const [isEdit, _] = useState(props.isEdit || false);
 
   const updateOption = (optionIndex, newValue) => {
     let oldOptions = [...options];
@@ -24,7 +20,7 @@ const QuestionCreator = (props) => {
 
   const checkCanAddQuestion = () => {
     if (question === "") return false;
-    let emptyOptions = options.filter((option) => option === "");
+    let emptyOptions = options.filter((option) => option.trim() === "");
     if (emptyOptions.length > 0) return false;
     if (!options.includes(correctOption)) return false;
     return true;
@@ -39,6 +35,19 @@ const QuestionCreator = (props) => {
       });
       setQuestion(defaultQuestion);
       setOptions(defaultOptions);
+    }
+  };
+
+  const updateExistingQuestion = () => {
+    if (!checkCanAddQuestion()) return;
+    if (
+      props.updateQuestion({
+        question: question,
+        options: options,
+        correctOption: correctOption,
+      })
+    ) {
+      alert("Question updated!");
     }
   };
 
@@ -70,9 +79,9 @@ const QuestionCreator = (props) => {
       ))}
       <Button
         primary
-        label="Add question"
+        label={isEdit ? "Update question" : "Add question"}
         disabled={!checkCanAddQuestion()}
-        onClick={() => addNewQuestion()}
+        onClick={() => (!isEdit ? addNewQuestion() : updateExistingQuestion())}
       />
     </Box>
   );
