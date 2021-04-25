@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 import { Box, Form, FormField, TextInput, Button } from 'grommet';
+import axios from 'axios'
 
 const JoinGame = () => {
   const history = useHistory();
@@ -8,12 +9,23 @@ const JoinGame = () => {
   const defaultFormValues = { 'nickname': '', 'gameid': '' };
   const [formValue, setFormValue] = useState(defaultFormValues);
 
-  const joinGame = (value) => {
+  const joinGame = async (value) => {
     console.log(value);
-    const { gameid } = value || {};
+    const { gameid, nickname } = value || {};
     // Query server here and upon succesful response navigate to game lobby otherwise display error
-    if (gameid) {
-      history.push(`/game/${gameid}`)
+    if (gameid && nickname) {
+      const payload = { nickname: nickname }
+      try {
+        // Will move out URLs to config 
+        // Need usercontext to store userdata 
+        const response = axios.post(`http://localhost:8080/api/join/${gameid}`, payload)
+        console.log(response.data);
+        history.push(`/game/${gameid}`)
+      } catch (error) {
+        console.log('error', error)
+        alert('Could not join game. Please try again');
+      }
+      
     }
   }
 
