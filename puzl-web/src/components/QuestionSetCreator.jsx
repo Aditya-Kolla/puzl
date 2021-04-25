@@ -23,8 +23,13 @@ const QuestionSetCreator = (props) => {
       (q) => q.question === updatedQuestion.question
     );
     if (!!sameQuestion) {
-      alert("The same question already exists!");
-      return false;
+      let areOptionsSame = sameQuestion.options.every(
+        (q, i) => q === updatedQuestion.options[i]
+      );
+      if (areOptionsSame) {
+        alert("The same question already exists!");
+        return false;
+      }
     }
     let newQuestionSet = [...questionSet];
     let updatedQuestionInSet = newQuestionSet.find(
