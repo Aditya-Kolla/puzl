@@ -1,8 +1,8 @@
 import React from 'react';
 import { Heading, Grommet } from 'grommet';
 
-import AppContainer from './components/AppContainer';
-import MainContainer from './components/MainContainer';
+import AppContainer from './containers/AppContainer';
+import MainContainer from './containers/MainContainer';
 
 const theme = {
   global: {

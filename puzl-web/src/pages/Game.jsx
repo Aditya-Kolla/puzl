@@ -1,25 +1,27 @@
-import React, { useContext, useCallback, useState, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { SocketContext } from '../context/socket';
+import { UserContext } from '../context/user';
 import { Header, Box } from 'grommet';
 
 const Game = () => {
   const socket = useContext(SocketContext);
-  const [joined, setJoined] = useState(false);
+  const [userContext, setUserContext] = useContext(UserContext);
 
   useEffect(() => {
-    console.log('Mounted');
     return () => {
       // before the component is destroyed
-      console.log('Component will unmount');
       socket.disconnect();
     }
-  }, [])
+  }, []);
 
   return (
     <Box fill pad="medium" align="center">
       <Header>
         Game Lobby
-    </Header>
+      </Header>
+      <Header>
+        {`Wait for others to join, ${userContext.nickname}!`}
+      </Header>
     </Box>
   );
 };
