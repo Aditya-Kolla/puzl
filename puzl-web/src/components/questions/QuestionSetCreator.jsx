@@ -28,6 +28,11 @@ const QuestionSetCreator = (props) => {
     let oldQuestionIndex = newQuestionSet.findIndex(
       (question) => question.question === oldQuestion.question
     );
+    let updatedQuestionIndex = newQuestionSet.findIndex(question => question.question === updatedQuestion.question);
+    if (updatedQuestionIndex != -1) {
+      alert("The question already exists");
+      return;
+    }
     newQuestionSet[oldQuestionIndex] = updatedQuestion;
     setQuestionSet(newQuestionSet);
     setActiveQuestion(updatedQuestion);
