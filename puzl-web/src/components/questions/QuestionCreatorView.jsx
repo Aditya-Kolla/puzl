@@ -1,16 +1,17 @@
 import React, { useState } from "react";
+
 import { Box, Button, RadioButton, TextArea, TextInput } from "grommet";
 
-const QuestionCreator = (props) => {
-  const defaultQuestion = "";
-  const defaultOptions = ["Option 1", "Option 2", "Option 3", "Option 4"];
+import {
+  doesCorrectOptionExists,
+  isOptionValid,
+  isQuestionValid,
+} from "./QuestionCreator";
 
-  const [question, setQuestion] = useState(props.question || defaultQuestion);
-  const [options, setOptions] = useState(props.options || defaultOptions);
-  const [correctOption, setCorrectOption] = useState(
-    props.correctOption || options[0]
-  );
-  const [isEdit, _] = useState(props.isEdit || false);
+const QuestionCreator = (props) => {
+  const [question, setQuestion] = useState(props.question);
+  const [options, setOptions] = useState(props.options);
+  const [correctOption, setCorrectOption] = useState(props.correctOption);
 
   const updateOption = (optionIndex, newValue) => {
     let oldOptions = [...options];
@@ -18,13 +19,12 @@ const QuestionCreator = (props) => {
     setOptions(oldOptions);
   };
 
-  const checkCanAddQuestion = () => {
-    if (question === "") return false;
-    let emptyOptions = options.filter((option) => option.trim() === "");
-    if (emptyOptions.length > 0) return false;
-    if (!options.includes(correctOption)) return false;
-    return true;
-  };
+  const checkCanAddQuestion = () =>
+    isQuestionValid(question) &&
+    options.reduce(
+      (optionIsValid, option) => optionIsValid && isOptionValid(option)
+    ) &&
+    doesCorrectOptionExists(correctOption, options);
 
   const addNewQuestion = () => {
     if (checkCanAddQuestion()) {
@@ -33,29 +33,13 @@ const QuestionCreator = (props) => {
         options: options,
         correctOption: correctOption,
       });
-      setQuestion(defaultQuestion);
-      setOptions(defaultOptions);
-    }
-  };
-
-  const updateExistingQuestion = () => {
-    if (!checkCanAddQuestion()) return;
-    if (
-      props.updateQuestion({
-        question: question,
-        options: options,
-        correctOption: correctOption,
-      })
-    ) {
-      alert("Question updated!");
     }
   };
 
   return (
     <Box align="center" flex="grow" margin="small" gap="small" fill="vertical">
       <TextArea
-        placeholder="Enter your question here"
-        value={question}
+        placeholder={question}
         size="large"
         onChange={(event) => setQuestion(event.target.value)}
       />
@@ -79,9 +63,9 @@ const QuestionCreator = (props) => {
       ))}
       <Button
         primary
-        label={isEdit ? "Update question" : "Add question"}
+        label="Add question"
         disabled={!checkCanAddQuestion()}
-        onClick={() => (!isEdit ? addNewQuestion() : updateExistingQuestion())}
+        onClick={addNewQuestion}
       />
     </Box>
   );
