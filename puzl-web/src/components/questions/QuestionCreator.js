@@ -1,5 +1,5 @@
 export const doesSameQuestionExists = (newQuestion, questions) =>
-  questions.find((question) => question.question === newQuestion) !== undefined;
+  questions.find((question) => question === newQuestion) !== undefined;
 
 export const isQuestionValid = (newQuestion) => newQuestion.trim() !== "";
 

@@ -5,6 +5,8 @@ import { FormPreviousLink } from "grommet-icons";
 import QuestionCreator from "./QuestionCreatorView.jsx";
 import { QuestionView } from "./QuestionView.jsx";
 
+import { doesSameQuestionExists } from "./QuestionCreator.js";
+
 const QuestionSetCreator = (props) => {
   const [questionSet, setQuestionSet] = useState([]);
   const [isCreationActive, setCreationActive] = useState(false);
@@ -12,6 +14,10 @@ const QuestionSetCreator = (props) => {
   const [isEditingActive, setEditingActive] = useState(false);
 
   const addQuestion = (newQuestion) => {
+    if (doesSameQuestionExists(newQuestion.question, questionSet.map(question => question.question))) {
+      alert("The question already exists");
+      return;
+    }
     let newQuestionSet = [...questionSet];
     newQuestionSet.push(newQuestion);
     setQuestionSet(newQuestionSet);
