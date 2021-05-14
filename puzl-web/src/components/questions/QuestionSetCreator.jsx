@@ -13,6 +13,11 @@ const QuestionSetCreator = (props) => {
   const [activeQuestion, setActiveQuestion] = useState(undefined);
   const [isEditingActive, setEditingActive] = useState(false);
 
+  const goToViewMode = (questionInView) => {
+    setCreationActive(false);
+    setActiveQuestion(questionInView);
+    setEditingActive(false);
+  }
   const addQuestion = (newQuestion) => {
     if (doesSameQuestionExists(newQuestion.question, questionSet.map(question => question.question))) {
       alert("The question already exists");
@@ -21,6 +26,7 @@ const QuestionSetCreator = (props) => {
     let newQuestionSet = [...questionSet];
     newQuestionSet.push(newQuestion);
     setQuestionSet(newQuestionSet);
+    goToViewMode();
   };
 
   const updateQuestion = (oldQuestion, updatedQuestion) => {
@@ -35,8 +41,7 @@ const QuestionSetCreator = (props) => {
     }
     newQuestionSet[oldQuestionIndex] = updatedQuestion;
     setQuestionSet(newQuestionSet);
-    setActiveQuestion(updatedQuestion);
-    setEditingActive(false);
+    goToViewMode(updatedQuestion);
   };
 
   const goToQuestionSet = () => {
