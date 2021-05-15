@@ -3,8 +3,8 @@ import { Box, Button, Heading, List } from "grommet";
 import { FormPreviousLink } from "grommet-icons";
 
 import { ulid } from "ulid";
-import QuestionCreator from "./questions/QuestionCreator";
-import { PuzlQuestion } from "./questions/question";
+import QuestionCreator from "./QuestionCreator";
+import { PuzlQuestion } from "./question";
 
 const QuestionSetCreator = () => {
   const [questionSet, setQuestionSet] = useState<PuzlQuestion[]>([]);
