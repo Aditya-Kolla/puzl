@@ -3,7 +3,7 @@ import { Box, Button, Heading, List } from 'grommet'
 import { FormPreviousLink } from 'grommet-icons'
 
 import { ulid } from 'ulid'
-import QuestionCreator from './QuestionCreator'
+import { QuestionCreator } from './QuestionCreator'
 import { PuzlQuestion } from './question'
 
 const QuestionSetCreator = () => {
@@ -20,13 +20,13 @@ const QuestionSetCreator = () => {
             )
         )
             return
-        newQuestion.options = newQuestion.options.map((option) => ({
+        newQuestion.options = newQuestion.options.map((option) => ({ // eslint-disable-line
             id: ulid(),
             value: option.value,
         }))
         newQuestionSet.push(newQuestion)
         setQuestionSet(newQuestionSet)
-        return newQuestion
+        return newQuestion // eslint-disable-line
     }
 
     const goToQuestionSet = () => {
@@ -57,6 +57,7 @@ const QuestionSetCreator = () => {
                         onClickItem={(item: any) => {
                             setActiveQuestion(item)
                             console.log(item)
+                            console.log(activeQuestion)
                         }}
                     />
                     <Button
@@ -71,4 +72,4 @@ const QuestionSetCreator = () => {
     )
 }
 
-export default QuestionSetCreator
+export default QuestionSetCreator;

@@ -55,10 +55,10 @@ export const QuestionCreator = ({ addQuestion }: QuestionCreatorProps) => {
                         <RadioButton
                             name={option.value}
                             checked={option.id === correctOption.id}
-                            onChange={(_) => setCorrectOption(option)}
+                            onChange={() => setCorrectOption(option)}
                         />
                         <TextInput
-                            key={index}
+                            key={options[index].id}
                             placeholder={options[index].value}
                             size="medium"
                             onChange={(event) =>

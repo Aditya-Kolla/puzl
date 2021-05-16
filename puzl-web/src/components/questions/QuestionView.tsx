@@ -7,7 +7,7 @@ interface QuestionViewProps {
     question: PuzlQuestion
 }
 
-export const QuestionView = ({ question }: QuestionViewProps) => (
+const QuestionView = ({ question }: QuestionViewProps) => (
     <Box>
         <Text>{question.question}</Text>
         {question.options.map((option) => (
@@ -15,3 +15,5 @@ export const QuestionView = ({ question }: QuestionViewProps) => (
         ))}
     </Box>
 )
+
+export default QuestionView
