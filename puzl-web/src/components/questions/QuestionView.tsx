@@ -1,19 +1,17 @@
-import React from "react";
+import React from 'react'
 
-import { Box, Text } from "grommet";
-import { PuzlQuestion } from "./question";
+import { Box, Text } from 'grommet'
+import { PuzlQuestion } from './question'
 
 interface QuestionViewProps {
-  question: PuzlQuestion;
+    question: PuzlQuestion
 }
 
-export const QuestionView = ({ question }: QuestionViewProps) => {
-  return (
+export const QuestionView = ({ question }: QuestionViewProps) => (
     <Box>
-      <Text>{question.question}</Text>
-      {question.options.map((option) => (
-        <Box key={option.id}>{option.value}</Box>
-      ))}
+        <Text>{question.question}</Text>
+        {question.options.map((option) => (
+            <Box key={option.id}>{option.value}</Box>
+        ))}
     </Box>
-  );
-};
+)

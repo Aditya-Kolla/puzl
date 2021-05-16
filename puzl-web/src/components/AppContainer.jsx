@@ -1,10 +1,10 @@
-import React from "react";
-import { Box } from 'grommet';
+import React from 'react'
+import { Box } from 'grommet'
 
-const AppContainer = (props) => (
+const AppContainer = ({children}) => (
     <Box align="center" margin="xsmall">
-        {props.children}
+        {children}
     </Box>
 )
 
-export default AppContainer;
+export default AppContainer
