@@ -12,21 +12,23 @@ const QuestionSetCreator = () => {
     const [activeQuestion, setActiveQuestion] =
         useState<PuzlQuestion | undefined>()
 
-    const addQuestion = (newQuestion: PuzlQuestion) => {
+    const addQuestion = (question: PuzlQuestion) => {
         const newQuestionSet = [...questionSet]
         if (
             newQuestionSet.find(
-                (question) => question.question === newQuestion.question
+                (q) => q.question === question.question
             )
-        )
-            return
-        newQuestion.options = newQuestion.options.map((option) => ({ // eslint-disable-line
+        ) {
+            return undefined
+        }
+        const newQuestion = {...question}
+        newQuestion.options = newQuestion.options.map((option) => ({
             id: ulid(),
             value: option.value,
         }))
         newQuestionSet.push(newQuestion)
         setQuestionSet(newQuestionSet)
-        return newQuestion // eslint-disable-line
+        return newQuestion
     }
 
     const goToQuestionSet = () => {
@@ -72,4 +74,4 @@ const QuestionSetCreator = () => {
     )
 }
 
-export default QuestionSetCreator;
+export default QuestionSetCreator
