@@ -1,0 +1,48 @@
+version: "3"
+
+services:
+  puzl-web:
+    build:
+      context: ./puzl-web
+      dockerfile: Dockerfile
+    networks:
+      - backend
+    env_file: .env
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./puzl-web:/home/node/puzl-web
+      - puzl-web-node_modules:/home/node/puzl-web/node_modules
+    stdin_open: true
+
+  puzl-server:
+    build:
+      context: ./puzl-server
+      dockerfile: Dockerfile
+    networks:
+      - backend
+    env_file: .env
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./puzl-server:/home/node/puzl-server
+      - puzl-server-node_modules:/home/node/puzl-server/node_modules
+
+  redis:
+    image: "redis:6-alpine"
+    networks:
+      - backend
+    ports:
+      - "6379:6379"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+
+volumes:
+  puzl-server-node_modules:
+    driver: local
+  puzl-web-node_modules:
+    driver: local
+
+networks:
+  backend:
+    driver: bridge
