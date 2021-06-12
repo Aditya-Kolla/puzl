@@ -4,7 +4,7 @@ const joinGame = (req, res) => {
     const gameId = req.params.gameid; 
     const { nickname } = req.body;
     if (!!!nickname) {
-        res.status(400).json({'error': 'Missing required argument: nickname'});
+        res.status(500).json({'error': 'Missing required argument: nickname'});
         return;
     }
     // Check if gameId is valid

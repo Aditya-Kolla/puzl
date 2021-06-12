@@ -1,7 +1,7 @@
 module.exports = (io, socket) => {
-    const userDisconnect = () => {
+    const playerDisconnect = () => {
         console.log(`Disconnected ${socket.id}`);
     }
   
-    socket.on("disconnect", userDisconnect);
+    socket.on("disconnect", playerDisconnect);
   }
