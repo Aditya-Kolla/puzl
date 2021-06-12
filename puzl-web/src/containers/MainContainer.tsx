@@ -2,16 +2,19 @@ import React, { useState } from 'react';
 import { Box } from 'grommet';
 import { Switch, Route } from 'react-router-dom';
 import { SocketContext, socket } from '../context/socket';
-import { UserContext, user } from '../context/user';
+import { UserContext} from '../context/UserContext';
+
+import { User } from "../types/user";
 
 import Home from '../pages/Home';
 import Game from '../pages/Game';
+import { useContext } from 'react';
 
 const MainContainer = () => {
-  const [userContext, setUserContext] = useState(user);
+  const [user, setUser] = useState<User>();
 
   return (
-    <UserContext.Provider value={[userContext, setUserContext]}>
+    <UserContext.Provider value={{ user, setUser }}>
       <SocketContext.Provider value={socket}>
         <Box fill>
           <Switch>

@@ -1,24 +1,28 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { SocketContext } from '../context/socket';
-import { UserContext } from '../context/user';
+import { UserContext, useUserContext } from '../context/UserContext';
 import { Box, Heading, List } from 'grommet';
 
 const Game = () => {
   const socket = useContext(SocketContext);
-  const [userContext, setUserContext] = useContext(UserContext);
+  const  { user } = useUserContext();
+
   // Bootstrap existing players through APIS
-  const [playerList, setPlayerList] = useState([]);
+  const [playerList, setPlayerList] = useState<any>([]);
 
   useEffect(() => {
+    if (!user) {
+      return;
+    }
     const playerJoinData = { 
-      playerId: userContext.userid,
-      gameId: userContext.gameid,
-      nickname: userContext.nickname
+      playerId: user.userId,
+      gameId: user.gameId,
+      nickname: user.nickname
     };
     socket.emit('player-join', playerJoinData);
-    socket.on('player-add', (playerName) => {
+    socket.on('player-add', (playerName: any) => {
       console.log('New player joined ' + playerName);
-      setPlayerList(prevPlayerList => ([
+      setPlayerList((prevPlayerList: any) => ([
         ...prevPlayerList,
         playerName
       ]));
