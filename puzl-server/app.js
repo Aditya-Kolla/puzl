@@ -5,7 +5,7 @@ const io = require('socket.io')(http);
 const cors = require('cors');
 
 const routes = require('./routes');
-const registerUserHandlers = require('./handlers/userHandler');
+const registerPlayerHandlers = require('./handlers/playerHandler');
 
 app.use(cors());
 // support parsing of application/json type post data
@@ -20,7 +20,7 @@ app.use('/api', routes)
 const onConnection = (socket) => {
     console.log(`Connection established: ${socket.id}`);
 
-    registerUserHandlers(io, socket);
+    registerPlayerHandlers(io, socket);
 }
 
 io.on('connection', onConnection);
