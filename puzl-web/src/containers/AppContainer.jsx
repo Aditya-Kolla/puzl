@@ -1,10 +1,15 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Box } from 'grommet'
 
-const AppContainer = (props) => (
+const AppContainer = ({ children }) => (
     <Box align="center" margin="xsmall">
-        {props.children}
+        {children}
     </Box>
 )
+
+AppContainer.propTypes = {
+    children: PropTypes.node.isRequired,
+}
 
 export default AppContainer

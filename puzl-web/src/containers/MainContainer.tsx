@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { Box } from 'grommet'
 import { Switch, Route } from 'react-router-dom'
 import { SocketContext, socket } from '../context/socket'

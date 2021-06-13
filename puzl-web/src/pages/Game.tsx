@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Box, Heading, List } from 'grommet'
 import { SocketContext } from '../context/socket'
-import { UserContext, useUserContext } from '../context/UserContext'
+import { useUserContext } from '../context/UserContext'
 
 const Game = () => {
     const socket = useContext(SocketContext)
@@ -12,7 +12,7 @@ const Game = () => {
 
     useEffect(() => {
         if (!user) {
-            return
+            return undefined
         }
         const playerJoinData = {
             playerId: user.userId,

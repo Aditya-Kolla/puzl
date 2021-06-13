@@ -1,13 +1,13 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 import { Box, Form, FormField, TextInput, Button } from 'grommet'
 
 import { useUserContext } from '../context/UserContext'
-import { User, UserJoinRequest } from '../types/user'
+import { UserJoinRequest } from '../types/user'
 
 const JoinGame = () => {
-    const { user, setUser } = useUserContext()
+    const { setUser } = useUserContext()
     const history = useHistory()
 
     const defaultFormValues: UserJoinRequest = { nickname: '', gameId: '' }
