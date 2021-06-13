@@ -1,15 +1,15 @@
 export interface QuestionSet {
-  name: string,
-  questions: Question[]
-};
+    name: string
+    questions: Question[]
+}
 
 export interface Question {
-  text: string,
-  options: Option[],
-  correctOption: Option
-};
+    text: string
+    options: Option[]
+    correctOption: Option
+}
 
 export interface Option {
-  id: string,
-  value: string
-};
+    id: string
+    value: string
+}
