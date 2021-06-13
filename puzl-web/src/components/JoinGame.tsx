@@ -3,30 +3,32 @@ import axios from 'axios'
 import { useHistory } from 'react-router-dom';
 import { Box, Form, FormField, TextInput, Button } from 'grommet';
 
-import { UserContext } from '../context/user';
+import { useUserContext } from '../context/UserContext';
+import { User, UserJoinRequest } from '../types/user';
 
 const JoinGame = () => {
-  const [userContext, setUserContext] = useContext(UserContext);
+  const  { user, setUser } = useUserContext();
   const history = useHistory();
 
-  const defaultFormValues = { 'nickname': '', 'gameid': '' };
+  const defaultFormValues: UserJoinRequest = { nickname: '', gameId: '' };
   const [formValue, setFormValue] = useState(defaultFormValues);
 
-  const joinGame = async (value) => {
-    const { gameid, nickname } = value || {};
+  const joinGame = async (value: UserJoinRequest) => {
+    console.log(value);
+    const { gameId, nickname } = value || {};
     // Query server here and upon succesful response navigate to game lobby otherwise display error
-    if (gameid && nickname) {
+    if (gameId && nickname) {
       const payload = { nickname: nickname };
       try {
         // Will move out URLs to config 
-        const response = await axios.post(`http://localhost:8080/api/join/${gameid}`, payload);
+        const response = await axios.post(`http://localhost:8080/api/join/${gameId}`, payload);
         const user = {
           nickname: nickname,
-          gameid: gameid,
-          userid: response.data.id
+          gameId: gameId,
+          userId: response.data.id
         };
-        setUserContext(user);
-        history.push(`/game/${gameid}`);
+        setUser(user);
+        history.push(`/game/${gameId}`);
       } catch (error) {
         console.log('error', error);
         alert('Could not join game. Please try again');
@@ -46,8 +48,8 @@ const JoinGame = () => {
         <FormField name="nickname" htmlFor="nickname" label="Nickname" required>
           <TextInput id="nickname" name="nickname" />
         </FormField>
-        <FormField name="gameid" htmlFor="gameid" label="Game ID" required>
-          <TextInput id="gameid" name="gameid" />
+        <FormField name="gameId" htmlFor="gameId" label="Game ID" required>
+          <TextInput id="gameId" name="gameId" />
         </FormField>
 
         <Button
