@@ -1,9 +1,8 @@
-import React, { useContext } from 'react';
-import { UserContextContent } from "../types/user";
-
+import React, { useContext } from 'react'
+import { UserContextContent } from '../types/user'
 
 export const UserContext = React.createContext<UserContextContent>({
-  setUser: () => {}
-});
+    setUser: () => {},
+})
 
-export const useUserContext = () => useContext(UserContext);
+export const useUserContext = () => useContext(UserContext)

@@ -1,5 +1,5 @@
-import React from "react";
-import { Box } from 'grommet';
+import React from 'react'
+import { Box } from 'grommet'
 
 const AppContainer = (props) => (
     <Box align="center" margin="xsmall">
@@ -7,4 +7,4 @@ const AppContainer = (props) => (
     </Box>
 )
 
-export default AppContainer;
+export default AppContainer
