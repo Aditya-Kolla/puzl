@@ -10,7 +10,7 @@ module.exports = (io, socket) => {
         console.log(data);
         if(!gameId) return;
         socket.join(gameId);
-        addPlayerToGame(gameId, playerId);
+        addPlayerToGame(gameId, playerId, nickname);
         io.to(gameId).emit('player-add', nickname);
     }
 

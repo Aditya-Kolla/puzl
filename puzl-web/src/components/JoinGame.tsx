@@ -14,7 +14,6 @@ const JoinGame = () => {
     const [formValue, setFormValue] = useState(defaultFormValues)
 
     const joinGame = async (value: UserJoinRequest) => {
-        console.log(value)
         const { gameId, nickname } = value || {}
         // Query server here and upon succesful response navigate to game lobby otherwise display error
         if (gameId && nickname) {
@@ -54,7 +53,7 @@ const JoinGame = () => {
             >
                 <FormField
                     name="nickname"
-                    htmlFor="nickname"
+                    htmlFor="nickname" 
                     label="Nickname"
                     required
                 >
