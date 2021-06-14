@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import axios from 'axios';
 import { Box, Heading, List } from 'grommet'
 import { SocketContext } from '../context/socket'
 import { useUserContext } from '../context/UserContext'
@@ -10,10 +11,27 @@ const Game = () => {
     // Bootstrap existing players through APIS
     const [playerList, setPlayerList] = useState<any>([])
 
+    const getAllPlayers = async (gameId: string) => {
+        if (gameId) {
+            try {
+                // Will move out URLs to config
+                const response = await axios.get(
+                    `http://localhost:8080/api/player/${gameId}`,
+                )
+                const playerNames = response && response.data.players;
+                setPlayerList(playerNames);
+            } catch (error) {
+                console.log('error', error)
+                alert('Could not get all players')
+            }
+        }
+    }
+
     useEffect(() => {
         if (!user) {
             return undefined
         }
+        getAllPlayers(user.gameId);
         const playerJoinData = {
             playerId: user.userId,
             gameId: user.gameId,
