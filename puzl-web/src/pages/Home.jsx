@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, Tabs, Tab } from 'grommet'
 
 import JoinGame from '../components/JoinGame'
-import QuestionSetCreator from '../questions/QuestionSetCreator'
+import QuestionSetView from '../questions/QuestionSetView'
 
 const Home = () => (
     <Box fill pad="medium" align="center">
@@ -11,7 +11,7 @@ const Home = () => (
                 <JoinGame />
             </Tab>
             <Tab title="Create">
-                <QuestionSetCreator />
+                <QuestionSetView />
             </Tab>
         </Tabs>
     </Box>
