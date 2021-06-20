@@ -20,18 +20,16 @@ const QuestionSetCreator = () => {
     }
 
     const saveQuestionSet = async () => {
-        let res: any;
+        let res: any
         try {
-            res = await axios.post(
-            `http://localhost:8080/api/questionSets`,
-            {
+            res = await axios.post(`http://localhost:8080/api/questionSets`, {
                 name,
-                questions
-            });
+                questions,
+            })
         } catch (error) {
-            console.error(error);
+            console.error(error)
         }
-        console.log(res);
+        console.log(res)
     }
     return (
         <Box pad="medium">
@@ -72,18 +70,18 @@ const QuestionSetCreator = () => {
                 />
             ) : (
                 <>
-                <Button
-                    onClick={() => setQuestionCreationActive(true)}
-                    margin="medium"
-                    secondary
-                    label="Add a question"
-                />
-                <Button
-                    onClick={() => saveQuestionSet()}
-                    margin="medium"
-                    primary
-                    label="Save"
-                />
+                    <Button
+                        onClick={() => setQuestionCreationActive(true)}
+                        margin="medium"
+                        secondary
+                        label="Add a question"
+                    />
+                    <Button
+                        onClick={() => saveQuestionSet()}
+                        margin="medium"
+                        primary
+                        label="Save"
+                    />
                 </>
             )}
         </Box>
