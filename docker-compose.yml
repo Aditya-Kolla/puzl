@@ -16,6 +16,9 @@ services:
     stdin_open: true
 
   puzl-server:
+    depends_on: 
+      - redis
+      - mongodb
     build:
       context: ./puzl-server
       dockerfile: Dockerfile
@@ -36,6 +39,13 @@ services:
       - "6379:6379"
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
+  
+  mongodb:
+    image: mongo
+    networks: 
+      - backend
+    ports: 
+      - "27017:27017"
 
 volumes:
   puzl-server-node_modules:

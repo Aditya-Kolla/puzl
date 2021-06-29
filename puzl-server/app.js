@@ -3,6 +3,9 @@ const app = express();
 const http = require('http').createServer(app)
 const io = require('socket.io')(http);
 const cors = require('cors');
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb://mongodb:27017/puzl', {useNewUrlParser: true});
 
 const routes = require('./routes');
 const registerPlayerHandlers = require('./handlers/playerHandler');

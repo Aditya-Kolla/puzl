@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 
+import axios from 'axios'
+
 import { Box, Button, Text, TextInput } from 'grommet'
+
 import { Question } from '../types/question'
 import QuestionCreator from './QuestionCreator'
 
@@ -14,6 +17,19 @@ const QuestionSetCreator = () => {
         console.log(question)
         setQuestions([...questions, question])
         setQuestionCreationActive(false)
+    }
+
+    const saveQuestionSet = async () => {
+        let res: any
+        try {
+            res = await axios.post(`http://localhost:8080/api/questionSets`, {
+                name,
+                questions,
+            })
+        } catch (error) {
+            console.error(error)
+        }
+        console.log(res)
     }
     return (
         <Box pad="medium">
@@ -53,12 +69,20 @@ const QuestionSetCreator = () => {
                     }}
                 />
             ) : (
-                <Button
-                    onClick={() => setQuestionCreationActive(true)}
-                    margin="medium"
-                    secondary
-                    label="Add a question"
-                />
+                <>
+                    <Button
+                        onClick={() => setQuestionCreationActive(true)}
+                        margin="medium"
+                        secondary
+                        label="Add a question"
+                    />
+                    <Button
+                        onClick={() => saveQuestionSet()}
+                        margin="medium"
+                        primary
+                        label="Save"
+                    />
+                </>
             )}
         </Box>
     )

@@ -53,7 +53,7 @@ const JoinGame = () => {
             >
                 <FormField
                     name="nickname"
-                    htmlFor="nickname" 
+                    htmlFor="nickname"
                     label="Nickname"
                     required
                 >
